@@ -1,0 +1,12 @@
+# Ignorar ejecutables
+*.exe
+
+# Ignorar carpetas de configuración de IDEs (CLion y VS Code)
+.idea/
+cmake-build-debug/
+cmake-build-release/
+.vscode/
+
+# Ignorar otros archivos temporales
+*.o
+*.obj
