@@ -86,7 +86,7 @@ public:
     virtual ~Empleado() = default;
 
     // Marcado const: calcular el salario no debe modificar el estado del objeto.
-    virtual double calcularSalario() const = 0;
+    [[nodiscard]] virtual double calcularSalario() const = 0;
 
     void mostrarInfo() const {
         std::cout << "  Nombre  : " << nombre
@@ -95,7 +95,7 @@ public:
                   << "\n";
     }
 
-    const std::string& getNombre() const { return nombre; }
+    [[nodiscard]] const std::string& getNombre() const { return nombre; }
 };
 
 class EmpleadoPlanta : public Empleado {
@@ -107,7 +107,7 @@ public:
 
     ~EmpleadoPlanta() override = default;
 
-    double calcularSalario() const override {
+    [[nodiscard]] double calcularSalario() const override {
         return sueldoFijo;
     }
 };
@@ -122,7 +122,7 @@ public:
 
     ~EmpleadoContrato() override = default;
 
-    double calcularSalario() const override {
+    [[nodiscard]] double calcularSalario() const override {
         return horasATrabajar * valorHora;
     }
 };
@@ -159,13 +159,13 @@ int main() {
             tipoEmpleado = aMinusculas(tipoEmpleado); // normaliza la entrada
 
             if (tipoEmpleado == "de planta") {
-                double salario = leerNumero<double>("Salario mensual fijo: $");
+                auto salario = leerNumero<double>("Salario mensual fijo: $");
                 empleados.push_back(std::make_unique<EmpleadoPlanta>(nombre, salario));
                 std::cout << "[OK] Empleado de planta registrado correctamente.\n\n";
 
             } else if (tipoEmpleado == "contrato") {
                 int    horas     = leerNumero<int>   ("Horas a trabajar    : ");
-                double valorHora = leerNumero<double>("Valor por hora      : $");
+                auto valorHora = leerNumero<double>("Valor por hora      : $");
                 empleados.push_back(std::make_unique<EmpleadoContrato>(nombre, horas, valorHora));
                 std::cout << "[OK] Empleado por contrato registrado correctamente.\n\n";
 
